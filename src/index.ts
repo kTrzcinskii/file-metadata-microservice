@@ -5,10 +5,13 @@ import cors from "cors";
 import notFound from "./middlewares/notFound";
 import errorHandler from "./middlewares/errorHandler";
 import fileRouter from "./routes/fileMetaData";
+import multer from "multer";
 
 const app = express();
 
 app.use(cors());
+
+const upload = multer({ dest: "uploads/" });
 
 app.use("/dist-css", express.static(process.cwd() + "/dist-css"));
 
@@ -16,7 +19,11 @@ app.get("/", function (_, res) {
   res.sendFile(process.cwd() + "/views/index.html");
 });
 
-app.use("/api/fileanalyse", fileRouter);
+app.use(
+  "/api/fileanalyse",
+  upload.fields([{ name: "upfile", maxCount: 1 }]),
+  fileRouter
+);
 
 app.use(errorHandler);
 //last middleware to call
