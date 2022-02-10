@@ -19,11 +19,7 @@ app.get("/", function (_, res) {
   res.sendFile(process.cwd() + "/views/index.html");
 });
 
-app.use(
-  "/api/fileanalyse",
-  upload.fields([{ name: "upfile", maxCount: 1 }]),
-  fileRouter
-);
+app.use("/api/fileanalyse", upload.single("upfile"), fileRouter);
 
 app.use(errorHandler);
 //last middleware to call

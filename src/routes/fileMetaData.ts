@@ -1,8 +1,8 @@
 import express from "express";
-import { uploadFile, getFileInfo } from "../controllers/fileMetaData";
+import { uploadFile } from "../controllers/fileMetaData";
 
 const router = express.Router();
 
-router.route("/").post(uploadFile).get(getFileInfo);
+router.route("/").post(uploadFile);
 
 export default router;
