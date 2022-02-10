@@ -10,6 +10,8 @@ const app = express();
 
 app.use(cors());
 
+app.use("/dist-css", express.static(process.cwd() + "/dist-css"));
+
 app.get("/", function (_, res) {
   res.sendFile(process.cwd() + "/views/index.html");
 });
